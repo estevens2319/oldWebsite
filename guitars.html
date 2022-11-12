@@ -2,33 +2,36 @@
 <html>
 
 <head>
-    <title> Eric Stevens </title>
+    <title> Guitars </title>
     <link rel="stylesheet" href="index.css">
     <script type="text/javascript" src="guitars.js"></script>
 </head>
 
-<body style="background-color:rgb(0, 0, 0);"></body>
+<body id="background" style="background-color:rgb(0, 0, 0);"></body>
 
 <center>
-    <div class="h1">
-        Eric Stevens Guitars
-    </div>
+    <a><img id="name" src="./images/jrguitarsname.png" alt="name" width="20%"></a>
+    <div position="absolute" id="instructions" style="color: rgb(110, 110, 231);" class=instructions>Click your
+        character. <br>Move with arrow keys. <br>Press X to interact.</div>
 </center>
 </div>
 
 <body onLoad="docReady()">
-    <div class=instructions>Click your character. Move with arrow keys. Press X to interact</div>
-    <img id="jr" src="./images/jrright.png" style="position:absolute;left: 200px; top:100px;" width="5%"
+    <img id="jr" src="./images/jrright.png" style="position:absolute;left: 10px; top:200px;z-index: 1" width="5%"
         onClick="chooseCharacter('jr')">
     <div class="center">
-        <img id="mario" src="./images/marioright.png" style="position:absolute;left: 300px; top:100px;" height="10%"
-            onClick="chooseCharacter('mario')">
+        <img id="mario" src="./images/marioright.png" style="position:absolute;left: 100px; top:200px;z-index: 2"
+            height="10%" onClick="chooseCharacter('mario')">
         <div class="center">
-            <img id="fireball" src="" style="position:absolute;left: 200px; top:200px;" width="3%">
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <img id="fireball" src="" style="position:absolute;left: 200px; top:200px; z-index: 100" width="3%">
             <div class="center">
-
-                <a id="home" href="./index.html">home</a>
-                <input class="button" id="searchbutton" type="button" onclick="" value="Click It" />
+                <img id="tube1" src="./images/warpgate.png" style="position: relative;z-index: 0;margin-right: 100px;"
+                    width="7%">
+                <img id="tube2" src="./images/warpgate.png" style="z-index: 0;" width="7%">
+                <br>
+                <img id="home" src="" style="position:absolute;left: 200px; top:200px; z-index: 1" width="120px">
+                <img id="CP" src="" style="position:absolute;left: 200px; top:200px; z-index: 1" width="274px">
                 <img id="rightborder" style="position:absolute;right:0; top:0;" height="1px" width="1px">
                 <img id="bottomborder" style="position:absolute;right:0; bottom:0;" height="1px" width="1px">
 

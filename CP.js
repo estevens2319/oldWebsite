@@ -27,29 +27,29 @@ function setTheme(charName) {
             break;
     }
     setTimeout(function () {
-        document.getElementById("home").style.top = (document.getElementById("tube1").offsetTop + document.getElementById("tube1").clientHeight) + 'px';
-        document.getElementById("home").style.left = (document.getElementById("tube1").offsetLeft + (document.getElementById("tube1").clientWidth / 2) - (document.getElementById("home").clientWidth / 2)) + 'px';
-        document.getElementById("CP").style.top = (document.getElementById("tube2").offsetTop + document.getElementById("tube2").clientHeight) + 'px';
-        document.getElementById("CP").style.left = (document.getElementById("tube2").offsetLeft + (document.getElementById("tube2").clientWidth / 2) - (document.getElementById("CP").clientWidth / 2)) + 'px';
+        document.getElementById("guitars").style.top = (document.getElementById("tube1").offsetTop + document.getElementById("tube1").clientHeight) + 'px';
+        document.getElementById("guitars").style.left = (document.getElementById("tube1").offsetLeft + (document.getElementById("tube1").clientWidth / 2) - (document.getElementById("guitars").clientWidth / 2)) + 'px';
+        document.getElementById("home").style.top = (document.getElementById("tube2").offsetTop + document.getElementById("tube2").clientHeight) + 'px';
+        document.getElementById("home").style.left = (document.getElementById("tube2").offsetLeft + (document.getElementById("tube2").clientWidth / 2) - (document.getElementById("home").clientWidth / 2)) + 'px';
     }, 5);
 }
 function jrTheme() {
+    document.getElementById("guitars").src = "./images/jrguitars.png";
     document.getElementById("home").src = "./images/jrhome.png";
-    document.getElementById("CP").src = "./images/jrCP.png";
-    document.getElementById("name").src = ("./images/jrguitarsname.png");
+    document.getElementById("name").src = ("./images/jrCPname.png");
     document.getElementById("tube1").src = ("./images/warpgate.png");
     document.getElementById("tube2").src = ("./images/warpgate.png");
     document.getElementById("background").style = "background-color:rgb(0, 0, 0);"
     document.getElementById("instructions").style = "color: rgb(110, 110, 231);;"
 }
 function marioTheme() {
+    document.getElementById("guitars").src = "./images/marioguitars.png";
     document.getElementById("home").src = "./images/mariohome.png";
-    document.getElementById("CP").src = "./images/marioCP.png";
     document.getElementById("tube1").src = ("./images/tube.png");
     document.getElementById("tube2").src = ("./images/tube.png");
     document.getElementById("background").style = "background-color:rgb(65, 117, 230);"
     document.getElementById("instructions").style = "color: rgba(66,176,50,255);"
-    document.getElementById("name").src = ("./images/marioguitarsname.png");
+    document.getElementById("name").src = ("./images/marioCPname.png");
 
 }
 function characterSwitch() {
@@ -126,11 +126,11 @@ function goTo(path) {
     switch (path) {
         case "tube1":
             sessionStorage.setItem("theme", character);
-            window.location.href = "./index.html";
+            window.location.href = "./guitars.html";
             break;
         case "tube2":
             sessionStorage.setItem("theme", character);
-            window.location.href = "./CP.html";
+            window.location.href = "./index.html";
             break;
         default:
             break;
@@ -223,13 +223,13 @@ function docReady() {
 }
 
 function renderPage() {
-    document.getElementById("home").src = "./images/jrhome.png"
-    document.getElementById("home").style.top = (document.getElementById("tube1").offsetTop + document.getElementById("tube1").clientHeight) + 'px';
-    document.getElementById("home").style.left = (document.getElementById("tube1").offsetLeft + (document.getElementById("tube1").clientWidth / 2) - (document.getElementById("home").clientWidth / 2)) + 'px';
+    document.getElementById("guitars").src = "./images/jrguitars.png"
+    document.getElementById("guitars").style.top = (document.getElementById("tube1").offsetTop + document.getElementById("tube1").clientHeight) + 'px';
+    document.getElementById("guitars").style.left = (document.getElementById("tube1").offsetLeft + (document.getElementById("tube1").clientWidth / 2) - (document.getElementById("guitars").clientWidth / 2)) + 'px';
 
-    document.getElementById("CP").src = "./images/jrCP.png"
-    document.getElementById("CP").style.top = (document.getElementById("tube2").offsetTop + document.getElementById("tube2").clientHeight) + 'px';
-    document.getElementById("CP").style.left = (document.getElementById("tube2").offsetLeft + (document.getElementById("tube2").clientWidth / 2) - (document.getElementById("CP").clientWidth / 2)) + 'px';
+    document.getElementById("home").src = "./images/jrhome.png"
+    document.getElementById("home").style.top = (document.getElementById("tube2").offsetTop + document.getElementById("tube2").clientHeight) + 'px';
+    document.getElementById("home").style.left = (document.getElementById("tube2").offsetLeft + (document.getElementById("tube2").clientWidth / 2) - (document.getElementById("home").clientWidth / 2)) + 'px';
     let prevTheme = sessionStorage.getItem("theme");
     if (prevTheme !== null) {
         chooseCharacter(prevTheme);

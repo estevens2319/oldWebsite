@@ -1,12 +1,15 @@
-
 let character = "jr";
 let facingRight = true;
 let speed = 2;
 let charImg = document.getElementById(character);
 let characterList = ["jr", "mario"];
+let tubes = ["tube1", "tube2"];
+
 function chooseCharacter(charName) {
   character = charName;
   charImg = document.getElementById(character);
+
+  setTheme(charName);
 }
 
 function getPosition(charToGet) {
@@ -14,14 +17,49 @@ function getPosition(charToGet) {
   return [charToGet.offsetLeft, charToGet.offsetTop];
 }
 
+function setTheme(charName) {
+  switch (charName) {
+    case "mario":
+      marioTheme();
+      break;
+    case "jr":
+      jrTheme();
+      break;
+    default:
+      break;
+  }
+  setTimeout(function () {
+    document.getElementById("guitars").style.top = (document.getElementById("tube1").offsetTop + document.getElementById("tube1").clientHeight) + 'px';
+    document.getElementById("guitars").style.left = (document.getElementById("tube1").offsetLeft + (document.getElementById("tube1").clientWidth / 2) - (document.getElementById("guitars").clientWidth / 2)) + 'px';
+    document.getElementById("CP").style.top = (document.getElementById("tube2").offsetTop + document.getElementById("tube2").clientHeight) + 'px';
+    document.getElementById("CP").style.left = (document.getElementById("tube2").offsetLeft + (document.getElementById("tube2").clientWidth / 2) - (document.getElementById("CP").clientWidth / 2)) + 'px';
+  }, 5);
+}
+function jrTheme() {
+  document.getElementById("guitars").src = "./images/jrguitars.png";
+  document.getElementById("CP").src = "./images/jrCP.png";
+  document.getElementById("name").src = ("./images/jrname.png");
+  document.getElementById("tube1").src = ("./images/warpgate.png");
+  document.getElementById("tube2").src = ("./images/warpgate.png");
+  document.getElementById("background").style = "background-color:rgb(0, 0, 0);"
+  document.getElementById("instructions").style = "color: rgb(110, 110, 231);;"
+}
+function marioTheme() {
+  document.getElementById("guitars").src = "./images/marioguitars.png";
+  document.getElementById("CP").src = "./images/marioCP.png";
+  document.getElementById("tube1").src = ("./images/tube.png");
+  document.getElementById("tube2").src = ("./images/tube.png");
+  document.getElementById("background").style = "background-color:rgb(65, 117, 230);"
+  document.getElementById("instructions").style = "color: rgba(66,176,50,255);"
+  document.getElementById("name").src = ("./images/marioname.png");
+
+}
 function characterSwitch() {
   currPosition = getPosition(character);
   for (let i = 0; i < characterList.length; i++) {
     if (characterList[i] !== character) {
       let nextChar = getPosition(characterList[i]);
       if ((Math.abs(currPosition[0] - nextChar[0]) < charImg.clientHeight) && (Math.abs(currPosition[1] - nextChar[1]) < (charImg.clientWidth))) {
-        console.log((Math.abs(currPosition[0] - nextChar[0]) + " " + charImg.clientHeight));
-        console.log(Math.abs(currPosition[1] - nextChar[1]) + " " + (charImg.clientWidth));
         chooseCharacter(characterList[i]);
         return;
       }
@@ -86,10 +124,36 @@ function reset(charImg) {
   charImg.style.left = '100px';
 }
 
-function gotoGuitars() {
-  window.location.href = "./guitars.html";
+function goTo(path) {
+  switch (path) {
+    case "tube1":
+      sessionStorage.setItem("theme", character);
+      window.location.href = "./guitars.html";
+      break;
+    case "tube2":
+      sessionStorage.setItem("theme", character);
+      window.location.href = "./CP.html";
+      break;
+    default:
+      break;
+  }
 }
+
+function tubeSwitch() {
+  currPosition = getPosition(character);
+  for (let i = 0; i < tubes.length; i++) {
+    if (tubes[i] !== character) {
+      let nextChar = getPosition(tubes[i]);
+      if ((Math.abs(currPosition[0] - nextChar[0]) < charImg.clientHeight) && (Math.abs(currPosition[1] - nextChar[1]) < (charImg.clientWidth))) {
+        return [true, tubes[i]];
+      }
+    }
+  }
+  return [false, ""];
+}
+
 function fire(charImg) {
+
   characterSwitch();
   let fireball = document.getElementById("fireball");
   let currPos = getPosition(character);
@@ -102,21 +166,19 @@ function fire(charImg) {
   fireball.style.left = (currPos[0] - fireball.clientWidth + ifRight) + 'px';
 
   currPosition = getPosition(character);
-  let guitarLink = getPosition("guitars");
-  let nav = false;
-  if ((Math.abs(currPosition[0] - guitarLink[0]) < charImg.clientHeight) && (Math.abs(currPosition[1] - guitarLink[1]) < (charImg.clientWidth))) {
-    nav = true
-  }
+  let navPath = tubeSwitch();
+
   setTimeout(function () {
     document.getElementById("fireball").src = "";
-    if (nav) {
-      gotoGuitars();
+    if (navPath[0]) {
+      goTo(navPath[1]);
     }
   }, 500);
 
 }
 
 function docReady() {
+  renderPage();
   window.addEventListener('keydown', checkX);
 
   function KeyboardController(keys, repeat) {
@@ -160,4 +222,17 @@ function docReady() {
     39: function () { rightArrowPressed(charImg); },
     40: function () { downArrowPressed(charImg); }
   }, 1);
+}
+
+function renderPage() {
+  document.getElementById("guitars").src = "./images/jrguitars.png"
+  document.getElementById("guitars").style.top = (document.getElementById("tube1").offsetTop + document.getElementById("tube1").clientHeight) + 'px';
+  document.getElementById("guitars").style.left = (document.getElementById("tube1").offsetLeft + (document.getElementById("tube1").clientWidth / 2) - (document.getElementById("guitars").clientWidth / 2)) + 'px';
+  document.getElementById("CP").src = "./images/jrCP.png"
+  document.getElementById("CP").style.top = (document.getElementById("tube2").offsetTop + document.getElementById("tube2").clientHeight) + 'px';
+  document.getElementById("CP").style.left = (document.getElementById("tube2").offsetLeft + (document.getElementById("tube2").clientWidth / 2) - (document.getElementById("CP").clientWidth / 2)) + 'px';
+  let prevTheme = sessionStorage.getItem("theme");
+  if(prevTheme !== null){
+  chooseCharacter(prevTheme);
+  }
 }
