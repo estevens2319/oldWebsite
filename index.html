@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="index.css">
     <script type="text/javascript" src="index.js"></script>
 </head>
+
 <body style="background-color:rgb(0, 0, 0);"></body>
 
 <center>
@@ -14,11 +15,21 @@
     </div>
 </center>
 </div>
+
 <body onLoad="docReady()">
-    <img id="jr" src="./images/jrright.png" style="position:absolute;left: 200px; top:100px;" width="5%" onClick="chooseCharacter('jr')">    <div class="center">
-    <img id="mario" src="./images/marioright.png" style="position:absolute;left: 200px; top:100px;" height="10%" onClick="chooseCharacter('mario')" >     <div class="center">
-        <a id = "guitars" href="./guitars.html">Guitars</a>
-        <input class="button" id="searchbutton" type="button" onclick="" value="Click It" />
-        <img id="rightborder" style="position:absolute;right:0; top:0;" height="1px" width="1px">
-        <img id="bottomborder" style="position:absolute;right:0; bottom:0;" height="1px" width="1px">
+    <div class=instructions>Click your character. Move with arrow keys. Press X to interact</div>
+    <img id="jr" src="./images/jrright.png" style="position:absolute;left: 200px; top:100px;" width="5%"
+        onClick="chooseCharacter('jr')">
+    <div class="center">
+        <img id="mario" src="./images/marioright.png" style="position:absolute;left: 300px; top:100px;" height="10%"
+            onClick="chooseCharacter('mario')">
+        <div class="center">
+            <img id="fireball" src="" style="position:absolute;left: 200px; top:200px;" width="3%">
+            <div class="center">
+
+                <a id="guitars" href="./guitars.html">Guitars</a>
+                <input class="button" id="searchbutton" type="button" onclick="" value="Click It" />
+                <img id="rightborder" style="position:absolute;right:0; top:0;" height="1px" width="1px">
+                <img id="bottomborder" style="position:absolute;right:0; bottom:0;" height="1px" width="1px">
+
 </html>

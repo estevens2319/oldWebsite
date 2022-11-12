@@ -1,7 +1,7 @@
 
 let character = "jr";
 let facingRight = true;
-let speed = 3;
+let speed = 2;
 let charImg = document.getElementById(character);
 let characterList = ["jr", "mario"];
 function chooseCharacter(charName) {
@@ -9,17 +9,28 @@ function chooseCharacter(charName) {
   charImg = document.getElementById(character);
 }
 
+function getPosition(charToGet) {
+  charToGet = document.getElementById(charToGet);
+  return [charToGet.offsetLeft, charToGet.offsetTop];
+}
+
 function characterSwitch() {
+  currPosition = getPosition(character);
   for (let i = 0; i < characterList.length; i++) {
     if (characterList[i] !== character) {
-      if ((charImg.offsetLeft - document.getElementById(characterList[i]).offsetLeft < 40) && (charImg.offsetTop - document.getElementById(characterList[i]).offsetTop < 40)) {
+      let nextChar = getPosition(characterList[i]);
+      if ((Math.abs(currPosition[0] - nextChar[0]) < charImg.clientHeight) && (Math.abs(currPosition[1] - nextChar[1]) < (charImg.clientWidth))) {
+        console.log((Math.abs(currPosition[0] - nextChar[0]) + " " + charImg.clientHeight));
+        console.log(Math.abs(currPosition[1] - nextChar[1]) + " " + (charImg.clientWidth));
         chooseCharacter(characterList[i]);
+        return;
       }
     }
   }
 }
 
 function leftArrowPressed(charImg) {
+  facingRight = false;
   charImg.src = "./images/" + character + "left.png";
   facingRight = false;
   let diff = charImg.offsetLeft;
@@ -33,6 +44,7 @@ function leftArrowPressed(charImg) {
 }
 
 function rightArrowPressed(charImg) {
+  facingRight = true;
   charImg.src = "./images/" + character + "right.png";
   facingRight = true;
   let imwidth = charImg.clientWidth;
@@ -79,12 +91,33 @@ function gotoGuitars() {
 }
 function fire(charImg) {
   characterSwitch();
-  // if ((charImg.offsetLeft - document.getElementById("guitars").offsetLeft < 20) && (charImg.offsetTop - document.getElementById("guitars").offsetTop < 20)) {
-  //   gotoGuitars();
-  // }
+  let fireball = document.getElementById("fireball");
+  let currPos = getPosition(character);
+  let ifRight = 0;
+  fireball.src = "./images/fireball.png";
+  if (facingRight) {
+    ifRight = charImg.clientWidth + fireball.clientWidth;
+  }
+  fireball.style.top = (currPos[1] + (charImg.clientHeight / 2) - (fireball.clientHeight / 2)) + 'px';
+  fireball.style.left = (currPos[0] - fireball.clientWidth + ifRight) + 'px';
+
+  currPosition = getPosition(character);
+  let guitarLink = getPosition("guitars");
+  let nav = false;
+  if ((Math.abs(currPosition[0] - guitarLink[0]) < charImg.clientHeight) && (Math.abs(currPosition[1] - guitarLink[1]) < (charImg.clientWidth))) {
+    nav = true
+  }
+  setTimeout(function () {
+    document.getElementById("fireball").src = "";
+    if (nav) {
+      gotoGuitars();
+    }
+  }, 500);
+
 }
 
 function docReady() {
+  window.addEventListener('keydown', checkX);
 
   function KeyboardController(keys, repeat) {
     var timers = {};
@@ -116,11 +149,15 @@ function docReady() {
     };
   };
   charImg = document.getElementById(character);
+  function checkX(key) {
+    if (key.keyCode === 88) {
+      fire(charImg);
+    }
+  }
   KeyboardController({
     37: function () { leftArrowPressed(charImg); },
     38: function () { upArrowPressed(charImg); },
     39: function () { rightArrowPressed(charImg); },
-    40: function () { downArrowPressed(charImg); },
-    88: function () { fire(charImg); }
+    40: function () { downArrowPressed(charImg); }
   }, 1);
 }
